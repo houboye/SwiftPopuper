@@ -25,11 +25,11 @@ TODO: Add long description of the pod here.
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'boye' => 'boye.hou' }
-  s.source           = { :git => 'https://github.com/liuzf/SwiftPopuper.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/houboye/SwiftPopuper.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '13.0'
 
-  s.source_files = 'SwiftPopuper/Classes/**/*'
+  s.source_files = 'SwiftPopuper/Classes/**/*.swift'
 
 end
