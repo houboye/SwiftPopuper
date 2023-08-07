@@ -281,7 +281,7 @@ public class SwiftPopuper: NSObject {
             model.config.containerView?.bringSubviewToFront(model.popuperBgView)
         }
         // 弹窗内容自定义布局
-        model.popupObj.layout?(with: model.popuperBgView)
+        model.popupObj.layout(with: model.popuperBgView)
         // 获取到业务中ContentView的frame
         model.popuperBgView.layoutIfNeeded()
         // 缓存弹窗内容的原始frame
