@@ -97,7 +97,7 @@ class PopuperModel: NSObject, UIGestureRecognizerDelegate {
         if dismissTime < 1 {
             closeTimer()
             // 关闭弹窗
-            SwiftPopuper.dismissWithPopup(self.popupObj)
+            SwiftPopuper.dismiss(with: self.popupObj)
             return
         }
         dismissTime -= 1
@@ -123,7 +123,7 @@ class PopuperModel: NSObject, UIGestureRecognizerDelegate {
     @objc private func popupBgViewTap(_ tap: UIGestureRecognizer) {
         if config.clickOutsideDismiss {
             popuperBgView.endEditing(true)
-            SwiftPopuper.dismissWithPopup(popupObj)
+            SwiftPopuper.dismiss(with: popupObj)
         }
     }
     
@@ -140,7 +140,7 @@ class PopuperModel: NSObject, UIGestureRecognizerDelegate {
         if pan.state == .ended {
             if abs(transP.y) >= (originalFrame.size.height / 2) {
                 // 向上滑动了至少内容的一半高度，触发关闭弹窗
-                SwiftPopuper.dismissWithPopup(popupObj)
+                SwiftPopuper.dismiss(with: popupObj)
             } else {
                 contentView().frame = originalFrame
             }

@@ -51,11 +51,11 @@ public class SwiftPopuper: NSObject {
     
     /// 移除指定弹窗
     /// - Parameter popup: 触发弹窗时传入的遵守协议的对象
-    public static func dismissWithPopup(_ popup: SwiftPopuperProtocol) {
+    public static func dismiss(with popup: SwiftPopuperProtocol) {
         if checkMainThread() == false {
             return
         }
-        let model = SwiftPopuper.default.getModelWithPopup(popup)
+        let model = SwiftPopuper.default.getModel(with: popup)
         if let model = model {
             SwiftPopuper.default.dismiss(with: model)
         }
@@ -63,11 +63,11 @@ public class SwiftPopuper: NSObject {
     
     /// 移除指定弹窗
     /// - Parameter identifier: 业务调用中设置的唯一标识符
-    public static func dismissPopupWithIdentifier(_ identifier: String) {
+    public static func dismissPopup(wtih identifier: String) {
         if identifier.count < 1 || checkMainThread() == false {
             return
         }
-        let model = SwiftPopuper.default.getModelWithIdentifirer(identifier)
+        let model = SwiftPopuper.default.getModel(with: identifier)
         if let model = model {
             SwiftPopuper.default.dismiss(with: model)
         }
@@ -75,7 +75,7 @@ public class SwiftPopuper: NSObject {
     
     /// 从指定容器中移除所有的弹窗
     /// - Parameter containerView: 指定容器，传nil则移除当前APP的keywindow上的
-    public static func removeAllPopupFromContainerView(_ containerView: UIView?) {
+    public static func removeAllPopup(from containerView: UIView?) {
         if checkMainThread() == false {
             return
         }
@@ -83,7 +83,7 @@ public class SwiftPopuper: NSObject {
         if view == nil {
             view = SwiftPopuper.default.getKeyWindow()
         }
-        let array = SwiftPopuper.default.getAllPopViewFromContainerView(containerView)
+        let array = SwiftPopuper.default.getAllPopView(from: containerView)
         if array.count < 1 {
             return
         }
@@ -126,7 +126,7 @@ public class SwiftPopuper: NSObject {
         }
     }
     
-    public static func getAllPopupCountFromContainerView(_ containerView: UIView?) -> Int {
+    public static func getAllPopupCount(from containerView: UIView?) -> Int {
         if checkMainThread() == false {
             return 0
         }
@@ -134,7 +134,7 @@ public class SwiftPopuper: NSObject {
         if view == nil {
             view = SwiftPopuper.default.getKeyWindow()
         }
-        let array = SwiftPopuper.default.getAllPopViewFromContainerView(containerView)
+        let array = SwiftPopuper.default.getAllPopView(from: containerView)
         return array.count
     }
     
@@ -194,7 +194,7 @@ public class SwiftPopuper: NSObject {
         pop(with: model, isRecover: false)
     }
     
-    private func getModelWithPopup(_ popup: SwiftPopuperProtocol) -> PopuperModel? {
+    private func getModel(with popup: SwiftPopuperProtocol) -> PopuperModel? {
         for itemModel in windowQueue {
             if itemModel.popupObj == popup {
                 return itemModel
@@ -203,7 +203,7 @@ public class SwiftPopuper: NSObject {
         return nil
     }
     
-    private func getModelWithIdentifirer(_ identifirer: String) -> PopuperModel? {
+    private func getModel(with identifirer: String) -> PopuperModel? {
         if identifirer.count < 1 {
             return nil
         }
@@ -216,7 +216,7 @@ public class SwiftPopuper: NSObject {
     }
     
     // 获取同一个容器中的所有未移除的弹窗（包含所有Group）
-    private func getAllPopViewFromContainerView(_ containerView: UIView?) -> [PopuperModel] {
+    private func getAllPopView(from containerView: UIView?) -> [PopuperModel] {
         var toArr = [PopuperModel]()
         for item in windowQueue {
             if item.config.containerView == containerView {
@@ -227,7 +227,7 @@ public class SwiftPopuper: NSObject {
     }
     
     private func getKeyWindow() -> UIView? {
-        return UIApplication.shared.keyWindow
+        return UIApplication.shared.windows.filter {$0.isKeyWindow}.first
     }
     
     // MARK: Pop
@@ -500,7 +500,7 @@ public class SwiftPopuper: NSObject {
     // MARK: Helper
     // 将需要移除的弹窗转移到另外一个队列
     private func divertToWaitRemoveQueue(with model: PopuperModel) {
-        let allArr = getAllPopViewFromContainerView(model.config.containerView)
+        let allArr = getAllPopView(from: model.config.containerView)
         allArr.forEach { [weak self] obj in
             guard let self = self else { return }
             if obj.popupObj == model.popupObj {
@@ -555,7 +555,7 @@ public class SwiftPopuper: NSObject {
     
     // 取出同一容器内的相同Group的弹窗
     private func getAllPopView(with model: PopuperModel) -> [PopuperModel] {
-        let allPops = getAllPopViewFromContainerView(model.config.containerView)
+        let allPops = getAllPopView(from: model.config.containerView)
         return getSameGroupPopups(with: model.config.groupID, popupList: allPops)
     }
     
