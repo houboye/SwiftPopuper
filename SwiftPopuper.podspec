@@ -32,4 +32,6 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'SwiftPopuper/Classes/**/*.swift'
 
+  s.swift_versions = "5.0"
+
 end
