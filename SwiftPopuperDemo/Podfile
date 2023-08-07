@@ -4,7 +4,7 @@ use_frameworks!
 
 target "SwiftPopuperDemo" do
 
-  pod 'SwiftPopuper', :path => './SwiftPopuper/'
+  pod 'SwiftPopuper', :path => '../SwiftPopuper/'
   pod 'SnapKit'
 
 end
