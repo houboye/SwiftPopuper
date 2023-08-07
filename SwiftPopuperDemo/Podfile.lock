@@ -1,10 +1,10 @@
 PODS:
   - SnapKit (5.6.0)
-  - SwiftPopuper (0.1.0)
+  - SwiftPopuper (0.2.0)
 
 DEPENDENCIES:
   - SnapKit
-  - SwiftPopuper (from `../SwiftPopuper/`)
+  - SwiftPopuper (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -12,12 +12,12 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   SwiftPopuper:
-    :path: "../SwiftPopuper/"
+    :path: "../"
 
 SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  SwiftPopuper: 6e6d4d8b4c96fe981bf4364917780c6c34dba884
+  SwiftPopuper: 2d590f15e4689e83a2f9dec20115ed9ab17829bc
 
-PODFILE CHECKSUM: 7e9a7150c638da80ca4fd68b2ea744b31c589847
+PODFILE CHECKSUM: 73786292b4598a5ca55f031c0251d66feed5de62
 
 COCOAPODS: 1.12.0
