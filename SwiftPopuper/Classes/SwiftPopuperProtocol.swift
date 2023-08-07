@@ -14,7 +14,7 @@ import UIKit
     
     /// 对自定义view进行布局
     /// - Parameter superView: super view
-    @objc optional func layout(with superView: UIView)
+    @objc func layout(with superView: UIView)
     
     /// 执行自定义动画
     @objc optional func executeCustomAnimation()
