@@ -1,0 +1,23 @@
+PODS:
+  - SnapKit (5.6.0)
+  - SwiftPopuper (0.1.0)
+
+DEPENDENCIES:
+  - SnapKit
+  - SwiftPopuper (from `./SwiftPopuper/`)
+
+SPEC REPOS:
+  trunk:
+    - SnapKit
+
+EXTERNAL SOURCES:
+  SwiftPopuper:
+    :path: "./SwiftPopuper/"
+
+SPEC CHECKSUMS:
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftPopuper: c70d72541cb205e9dc8d56de93525a4052458b43
+
+PODFILE CHECKSUM: 4229fe114d71d65fd7cc994691c3fe3defb3a312
+
+COCOAPODS: 1.12.0

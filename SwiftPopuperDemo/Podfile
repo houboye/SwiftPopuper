@@ -1,0 +1,11 @@
+platform :ios, "13.0"
+
+use_frameworks!
+
+target "SwiftPopuperDemo" do
+
+  pod 'SwiftPopuper', :path => './SwiftPopuper/'
+  pod 'SnapKit'
+
+end
+
