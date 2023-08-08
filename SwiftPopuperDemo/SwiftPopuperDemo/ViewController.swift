@@ -90,7 +90,7 @@ class ViewController: UIViewController {
     func showCenter() {
         var config = PopuperConfig(identifier: "showCenter")
         config.sceneStyle = .center
-        config.clickOutsideDismiss = true
+        config.isClickOutsideDismiss = true
         config.cornerRadius = 8
         config.popAnimationStyle = .scale
         config.isAloneMode = true
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
     func showCenter1() {
         var config = PopuperConfig(identifier: "showCenter1")
         config.sceneStyle = .center
-        config.clickOutsideDismiss = true
+        config.isClickOutsideDismiss = true
         config.cornerRadius = 8
         config.popAnimationStyle = .scale
         config.priority = 200
@@ -112,7 +112,7 @@ class ViewController: UIViewController {
     func showBottomShare() {
         var config = PopuperConfig(identifier: "showBottomShare")
         config.sceneStyle = .halfPage
-        config.clickOutsideDismiss = true
+        config.isClickOutsideDismiss = true
         config.cornerRadius = 8
         config.popAnimationStyle = .scale
         config.dismissAnimationStyle = .fade
@@ -124,7 +124,7 @@ class ViewController: UIViewController {
     func showBottomShare1() {
         var config = PopuperConfig(identifier: "showBottomShare1")
         config.sceneStyle = .halfPage
-        config.clickOutsideDismiss = true
+        config.isClickOutsideDismiss = true
         config.cornerRadius = 8
         config.popAnimationStyle = .scale
         config.dismissAnimationStyle = .fade
@@ -170,7 +170,7 @@ class ViewController: UIViewController {
         config.sceneStyle = .halfPage
         config.cornerRadius = 8
         config.isAloneMode = true
-        config.clickOutsideDismiss = true
+        config.isClickOutsideDismiss = true
         let popView = KeyboardPopView()
         SwiftPopuper.addPopup(popView, options: config)
     }

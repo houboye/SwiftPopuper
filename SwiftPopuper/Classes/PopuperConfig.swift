@@ -41,7 +41,7 @@ public struct PopuperConfig {
     public var priority: PopupStrategyPriority = 0
     
     /// 点击弹窗背景是否消失
-    public var clickOutsideDismiss = false
+    public var isClickOutsideDismiss = false
     
     /// 弹窗的容器视图，默认是当前APP的keywindow,可以设置成其他容器
     public var containerView: UIView?
@@ -79,7 +79,7 @@ public struct PopuperConfig {
     public var cornerRadius: CGFloat = 0
     
     /// 顶部通知条支持上滑关闭 默认true
-    public var needNoticeBarPanGesture = true
+    public var isNeedNoticeBarPanGesture = true
     
     /// 是否隐藏背景，默认为：false
     public var isHiddenBackgroundView = false
@@ -121,8 +121,8 @@ public struct PopuperConfig {
         }
         // 通知条默认自带上滑关闭手势
         if sceneStyle == .topNoticeView {
-            needNoticeBarPanGesture = true
-            clickOutsideDismiss = false
+            isNeedNoticeBarPanGesture = true
+            isClickOutsideDismiss = false
         }
         if sceneStyle == .halfPage {
             keyboardVSpace = 0

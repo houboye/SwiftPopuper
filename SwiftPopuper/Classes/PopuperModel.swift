@@ -113,7 +113,7 @@ class PopuperModel: NSObject, UIGestureRecognizerDelegate {
         popuperBgView.addGestureRecognizer(tap)
         
         // 添加上滑手势
-        if config.needNoticeBarPanGesture {
+        if config.isNeedNoticeBarPanGesture {
             let pan = UIPanGestureRecognizer(target: self, action: #selector(popupBgViewPan(_:)))
             pan.delegate = self
             popuperBgView.addGestureRecognizer(pan)
@@ -121,7 +121,7 @@ class PopuperModel: NSObject, UIGestureRecognizerDelegate {
     }
     
     @objc private func popupBgViewTap(_ tap: UIGestureRecognizer) {
-        if config.clickOutsideDismiss {
+        if config.isClickOutsideDismiss {
             popuperBgView.endEditing(true)
             SwiftPopuper.dismiss(with: popupObj)
         }
