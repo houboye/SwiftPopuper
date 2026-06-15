@@ -12,7 +12,9 @@ public class SwiftPopuper: NSObject {
     private static let `default` = SwiftPopuper()
     
     /// 当前所有队列中的弹窗
-    public private(set) var allPopups: [SwiftPopuperProtocol] = []
+    public var allPopups: [SwiftPopuperProtocol] {
+        return windowQueue.map { $0.popupObj }
+    }
     
     /// window弹窗存放的缓存队列
     private var windowQueue: [PopuperModel] = []
@@ -83,7 +85,7 @@ public class SwiftPopuper: NSObject {
         if view == nil {
             view = SwiftPopuper.default.getKeyWindow()
         }
-        let array = SwiftPopuper.default.getAllPopView(from: containerView)
+        let array = SwiftPopuper.default.getAllPopView(from: view)
         if array.count < 1 {
             return
         }
@@ -134,7 +136,7 @@ public class SwiftPopuper: NSObject {
         if view == nil {
             view = SwiftPopuper.default.getKeyWindow()
         }
-        let array = SwiftPopuper.default.getAllPopView(from: containerView)
+        let array = SwiftPopuper.default.getAllPopView(from: view)
         return array.count
     }
     
@@ -227,7 +229,14 @@ public class SwiftPopuper: NSObject {
     }
     
     private func getKeyWindow() -> UIView? {
-        return UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        if #available(iOS 15.0, *) {
+            return UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }
+        } else {
+            return UIApplication.shared.windows.first { $0.isKeyWindow }
+        }
     }
     
     // MARK: Pop
@@ -240,11 +249,8 @@ public class SwiftPopuper: NSObject {
             if list.count < 1 {
                 return
             }
-            var waitRemoveArr = list
-            // 移除之前所有的弹窗
-            while waitRemoveArr.count > 0 {
-                dismiss(with: model)
-                waitRemoveArr.removeLast()
+            for item in list {
+                dismiss(with: item)
             }
         }
         
@@ -398,8 +404,10 @@ public class SwiftPopuper: NSObject {
     private func animation(with layer: CALayer, duration: CGFloat, values: [CGFloat]) {
         let popAnimation = CAKeyframeAnimation(keyPath: "transform")
         popAnimation.duration = duration
-        popAnimation.values = [NSValue(caTransform3D: CATransform3DMakeScale(1.1, 1.1, 1)), NSValue(caTransform3D: CATransform3DIdentity)]
-        popAnimation.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut), CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)]
+        popAnimation.values = values.map { NSValue(caTransform3D: CATransform3DMakeScale($0, $0, 1)) }
+        popAnimation.timingFunctions = values.dropFirst().map { _ in
+            CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        }
         layer.add(popAnimation, forKey: nil)
     }
     
@@ -418,7 +426,7 @@ public class SwiftPopuper: NSObject {
                 model.contentView().alpha = 1
             }
         } else {
-            UIView.animate(withDuration: model.config.dismissDuration) { [weak self] in
+            UIView.animate(withDuration: model.config.dismissAnimationTime) { [weak self] in
                 guard let self = self else { return }
                 model.popuperBgView.backgroundColor = self.drawBackgroundViewColor(with: model.config.backgroundColor,
                                                                                    alpha: 0,
@@ -475,7 +483,7 @@ public class SwiftPopuper: NSObject {
     
     private func dismissAnimation(with model: PopuperModel, isNeedAnimation: Bool) {
         baseAlphaChange(with: model, isPop: false)
-        if isNeedAnimation {
+        if isNeedAnimation == false {
             return
         }
         switch model.config.sceneStyle {

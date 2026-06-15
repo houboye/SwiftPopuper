@@ -199,7 +199,7 @@ class PopuperModel: NSObject, UIGestureRecognizerDelegate {
         let keyboardMaxY = keyboardEedFrame?.origin.y ?? 0
         let popViewPoint = contentView().layer.position
         let currMaxY = popViewPoint.y + (contentView().frame.size.height / 2)
-        let offY = currMaxY - keyboardMaxY
+        let offY = currMaxY - keyboardMaxY + config.keyboardVSpace
         if keyboardMaxY < currMaxY { // 键盘被遮挡
             // 执行动画
             let originPoint = contentView().layer.position
